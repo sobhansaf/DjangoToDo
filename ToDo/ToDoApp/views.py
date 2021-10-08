@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 from .forms import SignupForm, SignInForm
@@ -59,3 +59,9 @@ class SignIn(View):
             return redirect('index')
         request.session['wrong_credentials'] = True   # with wrong credentials when going back to login page, it should show an error
         return redirect('login')
+
+
+class Logout(View):
+    def post(self, request):
+        logout(request)
+        return redirect('index')
