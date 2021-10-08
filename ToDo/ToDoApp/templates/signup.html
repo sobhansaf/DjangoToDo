@@ -9,15 +9,20 @@
 <form method="POST">
     {% csrf_token %}
     {% for field in signupform %}
-        <div class="mb-3">
+        <div class="mb-3 row">
             <span style="color: red ;margin: none;padding: none; border: none;">{{field.errors}}</span>
-            {{field.label_tag}}
-            {{field}}
+            <label for="{{field.auto_id}}" class="col-sm-2 col-form-label">{{field.label}}</label>
+            <div class="col-sm-3">
+                {{field}}
+            </div>
             <div class="form-text">{{field.help_text}}</div>
         </div>
         <hr>
     {% endfor %}
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </div>
 </form>
 
 
