@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block pageTitle %}Login{% endblock %}
+{% block content%}
+
+    <h1>Login</h1>
+    {% if wrong is True %}
+        <p style="color: red;">Wrong username or password</p>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-3 row">
+                <span style="color: red ;margin: none;padding: none; border: none;">{{field.errors}}</span>
+                <label for="{{field.auto_id}}" class="col-sm-2 col-form-label">{{field.label}}</label>
+                <div class="col-sm-3">
+                    {{field}}
+                </div>
+            </div>
+        {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <a href="{% url 'index' %}" class="btn btn-primary">Cancel</a>
+    </form>
+
+
+{% endblock %}
