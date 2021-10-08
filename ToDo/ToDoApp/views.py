@@ -52,7 +52,7 @@ class SignIn(View):
 
     def post(self, request):
         # post requests are responded with a redirect
-        form = SignInForm(request.POST)
+        form = SignInForm(request=request, data=request.POST)
         if form.is_valid():
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             login(request, user)
