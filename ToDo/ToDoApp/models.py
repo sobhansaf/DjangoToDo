@@ -8,3 +8,4 @@ class Todo(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
     date = models.DateField(default=timezone.now)
+    time = models.TimeField()
