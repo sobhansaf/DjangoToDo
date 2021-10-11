@@ -16,7 +16,7 @@ class ToDoForm(forms.ModelForm):
 
     class Meta:
         model = Todo
-        exclude = ('user', )
+        exclude = ('user', 'done')
         widgets = {
             'date': DateInput(),
             'time': TimeInput()

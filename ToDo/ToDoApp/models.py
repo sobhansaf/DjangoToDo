@@ -9,3 +9,4 @@ class Todo(models.Model):
     description = models.TextField()
     date = models.DateField(default=timezone.now)
     time = models.TimeField()
+    done = models.BooleanField(default=False)
