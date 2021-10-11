@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block pageTitle %}Add ToDo {% endblock %}
+
+{% block content %}
+<h1>adding a new ToDo</h1>
+{% for error in errors %}
+
+
+{% endfor %}
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <label for="{{field.auto_id}}" class="col-sm-2 col-form-label">{{field.label}}</label>
+        <span style="color: red ;margin: none;padding: none; border: none;">{{field.errors}}</span>
+        {{field}}
+        <div class="form-text">{{field.help_text}}</div>
+    {% endfor %}
+
+    <button class="btn btn-primary" type="submit">Add</button>
+    <a class="btn btn-secondary" href="{% url 'index' %}">Cancel</a>
+
+</form>
+
+{% endblock %}
+
+
