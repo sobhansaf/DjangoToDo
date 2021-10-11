@@ -3,12 +3,36 @@
     {% block pageTitle %} Welcome {% endblock %}
 
     {% block content %}
-        <h1>Welcome</h1>
         {% if not user.is_authenticated %}
+            <h1>Welcome</h1>
             <p>In order to create a todo list, please first <a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">Sign up</a></p>
         {% else %}
+            <h1>Hey {{user.username}}</h1>
             <p><form method="POST" action="{% url 'logout' %}">{% csrf_token %}
-                <button class="btn btn-primary" type="submit">Logout</button>
+                <button class="btn btn-primary btn-sm" type="submit">Logout</button>
             </form></p>
+            <hr>
+            {% if todo_list %}
+
+                {% for todo in todo_list %}
+                    <div class="card">
+                        <div class="card-header">
+                            On {{todo.date}} At {{todo.time}}
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{todo.title}}</h5>
+                            <p class="card-text">{{todo.description}}</p>
+                        </div>
+                    </div>
+                    <br>
+
+                {% endfor %}
+
+            {% else %}
+                <h3>your todo list is empty</h3>
+            {% endif %}
+
+            <a href="{% url 'new_todo' %}">add a new todo</a>
+
         {% endif %}
     {% endblock %}

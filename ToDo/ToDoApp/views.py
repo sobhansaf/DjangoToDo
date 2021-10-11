@@ -8,7 +8,10 @@ from .models import Todo
 
 class index(View):
     def get(self, request):
-        return render(request, 'index.html', {'user': request.user})
+        todo_list = []
+        if request.user.is_authenticated:
+            todo_list = Todo.objects.filter(user=request.user).order_by('date')
+        return render(request, 'index.html', {'user': request.user, 'todo_list': todo_list})
 
 class ToDoList(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
