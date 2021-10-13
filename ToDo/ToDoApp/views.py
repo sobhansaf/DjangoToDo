@@ -1,10 +1,16 @@
 from django.views import View
+from django.views.generic import DeleteView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 
 from .forms import ToDoForm
 from .models import Todo
+
+
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 class index(View):
     def get(self, request):
@@ -58,3 +64,20 @@ class Change_todo_status(LoginRequiredMixin, View):
         except:
             pass
         return redirect('index')
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class Delete_todo(LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'redirect_to'
+    model = Todo
+    success_url = reverse_lazy('index')
+    template_name = 'del_todo.html'
+    context_object_name = 'todo'
+
+    def get_object(self):
+        obj = super().get_object()
+        print(obj)
+        if obj.user == self.request.user:
+            return obj
+        raise Http404('Not found')

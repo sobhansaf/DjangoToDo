@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block pageTitle %}todo done{% endblock %}
+
+{% block content %}
+    {% if todo %}
+        <h3>Are you sure?</h3>
+        <p>
+            You want to delete with following information:
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-danger">{{ todo.title }}</li>
+                <li class="list-group-item">on {{ todo.date }}</li>
+                <li class="list-group-item">at {{ todo.time }}</li>
+                <li class="list-group-item">{{ todo.description }}</li>
+            </ul>
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+
+    {% else %}
+        <h3>Wrong ID</h3>
+    {% endif %}
+{% endblock %}
+
+

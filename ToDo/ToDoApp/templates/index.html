@@ -28,7 +28,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">{{todo.title}}</h5>
                                 <p class="card-text">{{todo.description}}</p>
-                                <form method="POST" action="{% url 'change_todo_status' todo_id=todo.id %}">
+                                <form method="POST" action="{% url 'change_todo_status' todo_id=todo.id %}" style="display: inline;">
                                     {% csrf_token %}
                                     {% if not todo.done %}
                                         <button type="submit" class="btn btn-success">Done</button>
@@ -36,6 +36,7 @@
                                         <button type="submit" class="btn btn-primary">Undone</button>
                                     {% endif %}
                                 </form>
+                                <a href="{% url 'delete' pk=todo.id %}" class="btn btn-danger">Delete</a>
                             </div>
                         </div>
                     </div>
